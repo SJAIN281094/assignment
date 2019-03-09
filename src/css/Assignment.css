@@ -139,14 +139,14 @@ body{
   position: relative;
   font-size: 1.1em;
   display: inline-block;
-  width: 50%;
-  margin: 0px 80px 0px 0px;
+  width: 200px;
+  margin: 0px 40px 0px 0px;
 }
 
 .album_list_name:after {
   content: '';
   position: absolute;
-  top: 35%;
+  top: 5px;
   right: 0px;
   width: 10px;
   height: 10px;
@@ -157,6 +157,7 @@ body{
 .album_list_year {
   position: relative;
   display: inline-block;
+  padding: 2px 5px;
   margin: 0px 30px 0px 0px;
 }
 
@@ -202,25 +203,77 @@ body{
   margin: 8px 0px 14px 0px;
 }
 
-.lBl_song_label{
-  font-size: 1em;
-  cursor: pointer;
-  margin: 15px 0px 0px 0px;
-}
-
 .lBl_current_song_label{
   font-size: 1em;
   margin: 15px 0px 0px 0px;
+}
+
+.lower_Block_sectionthree{
+  margin: 40px 0px 0px;
+  position: relative;
+}
+
+.current_song{
+  position: absolute;
+  left: 0px;
+}
+
+.songs_list{
+  width: 500px;
+  position: relative;
+}
+
+.lBl_song_label{
+  font-size: 1em;
+  cursor: pointer;
+  margin: 15px 0px 0px 30px;
+  width: 300px;
+  word-break: break-all;
 }
 
 .lBl_song_label:hover{
   font-weight: 700;
 }
 
+.song_time{
+  position: absolute;
+  right: 20px;
+}
+
+
 .lower_Block_sectiontwo{
   margin: 20px 0px 0px;
 }
 
-.lower_Block_sectionthree{
-  margin: 85px 0px 0px;
+.audio-player{
+  width: 30rem !important;
+}
+
+#play-icon{
+	height: 2rem !important;
+}
+
+#rewind-icon{
+	height: 2rem !important;
+}
+
+#forward-icon{
+	height: 2rem !important;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: goldenrod;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: red !important;
+}
+
+input[type=range]::-webkit-slider-fill-lower {
+  background: pink !important;
 }

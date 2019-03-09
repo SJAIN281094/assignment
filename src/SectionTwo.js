@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
 import cd from '../src/images/cd.png';
+import rewindBlack from '../src/images/rewind_black.svg';
+import rewindGray from '../src/images/rewind_gray.svg';
+import playBlack from '../src/images/play_black.svg';
+import playGray from '../src/images/play_gray.svg';
+import forwardBlack from '../src/images/forward_black.svg';
+import forwardGray from '../src/images/forward_gray.svg';
+import pauseGray from '../src/images/pause_gray.svg';
+import pauseBlack from '../src/images/pause_black.svg';
+import arrowGray from '../src/images/arrow_gray.svg';
+import AudioPlayer from 'react-modular-audio-player';
 
 class SectionTwo extends Component {
 
@@ -62,17 +72,57 @@ class SectionTwo extends Component {
 		});
 		this.setState({
 			"album":current_album[0].name,
-			"songs":current_album[0].songs
+			"songs":current_album[0].songs,
+			"current_song":"Play your favourite song"
 		});
 	}
 
-	current_song(event){
+	current_song(event,cur_song){
 		this.setState({
-			"current_song":event.target.innerText,
+			"current_song":cur_song.index+1+". "+cur_song.song,
 		});
 	}
 
 	render() {
+		let playlist = [
+			{ src: "http://media.djmazadownload.xyz/music/Singles/Aankh%20Marey%20%28Simmba%29%20-190Kbps%20%5BDJMaza.US%5D.mp3",
+				title: "Song",
+				artist: "Singer" }
+		];
+
+		let rearrangedPlayer = [
+			{
+				className: "tier-top",
+				style: {margin: "1.3rem",display:"flex",
+				alignItems: "center",
+				justifyContent: "space-evenly",
+		},
+				innerComponents: [
+					{
+						type: "rewind",
+						style: {width: "fit-content"}
+					},
+					{
+						type: "play",
+						style: {width: "fit-content",height: "2rem !important"}
+					},
+					{
+						type: "forward",
+						style: {width: "fit-content"}
+					}
+				]
+			},
+			{
+				className: "tier-bottom",
+				style: {margin: "0rem 0.3rem 0.3rem 0.3rem",width:"480px"},
+				innerComponents: [
+					{
+						type: "seek",
+					}
+				]
+			}
+		]
+
 		return (
 			<div id="lower_Block">
 				<div className="lower_Block_left">
@@ -100,12 +150,31 @@ class SectionTwo extends Component {
 						<div className="lBl_current_song_label">{this.state.current_song}</div>
 					</div>
 					<div className="lower_Block_sectiontwo">
-						<div className="lBl_header_label">PLAYER</div>
+						<AudioPlayer className="slider"
+						  rearrange={rearrangedPlayer}
+							audioFiles={playlist}
+							rewindIcon={rewindGray}
+							forwardIcon={forwardGray}
+							playIcon={playGray}
+							rewindHoverIcon={rewindBlack}
+							forwardHoverIcon={forwardBlack}
+							playHoverIcon={playBlack}
+							pauseIcon = {pauseGray}
+							pauseHoverIcon = {pauseBlack}
+						/>
 					</div>
 					<div className="lower_Block_sectionthree">
 						<div className="lBl_album_label">{this.state.album}</div>
 						{this.state.songs.map((song,index) => {
-							return<div className="lBl_song_label" onClick={event => { this.current_song(event)}} key={index}>{index+1+". "+song}</div>
+							return(
+								<div className="songs_list">
+								<img className="current_song" src={arrowGray} alt="current_song"/>
+									<div className="lBl_song_label" onClick={event => { this.current_song(event,{index,song})}} key={index}>
+										{index+1+". "+song}
+									<span className="song_time">{`......................2:30`}</span>
+									</div>
+								</div>
+							)
 						})
 						}
 					</div>
