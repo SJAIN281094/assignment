@@ -9,94 +9,73 @@ import forwardGray from '../src/images/forward_gray.svg';
 import pauseGray from '../src/images/pause_gray.svg';
 import pauseBlack from '../src/images/pause_black.svg';
 import arrowGray from '../src/images/arrow_gray.svg';
+import arrowBlack from '../src/images/arrow_black.svg';
 import AudioPlayer from 'react-modular-audio-player';
+import albums from './songslist.js';
+import classnames from 'classnames';
+
 
 class SectionTwo extends Component {
-
-	albums = [
-		{
-			"name":"Simmba",
-			"year":2019,
-			"songs":[
-				"Aankha Marey",
-				"Tere Bin",
-				"Mera Wala Dance",
-				"Bandeya Re Bandeya",
-				"Aala Re Aala"
-			]
-		},
-		{
-			"name":"Badhaai Ho",
-			"year":2018,
-			"songs":[
-				"Badhaaiyan tenu",
-				"Morni banke",
-				"Nain na jodeen",
-				"Sajan bade senti"
-			],
-		},
-		{
-			"name":"Heroes Of The Sun",
-			"year":2013,
-			"songs":[
-				"Morni banke",
-				"Nain na jodeen",
-			 ]
-		},
-		{
-			"name":"Picure Of The Past",
-			"year":2012,
-			"songs":[
-				"Sajan bade senti"
-			]
+	constructor() {
+		super();
+		this.state = {
+			playlist: [],
+			album: albums[0].name,
+			current_album: albums[0].name,
+			songs: albums[0].songs,
+			current_song: "Play your favourite song",
+			src: '',
+			current_src: [{src: ''}]
 		}
-	];
-
-
-	state = {
-		"album":"Simmba",
-		"songs":[
-			"Aankha Marey",
-			"Tere Bin",
-			"Mera Wala Dance",
-			"Bandeya Re Bandeya",
-			"Aala Re Aala"
-		],
-		"current_song":"Play your favourite song"
-
 	}
 
-	seleted_album(event,album_name){
-		var current_album = this.albums.filter(album => {
-			return album.name === album_name
+	componentDidMount() {
+		let playlist = [];
+		albums[0].songs.forEach((song) => {
+			playlist.push({src: song.src})
+		});
+
+		this.setState({
+			playlist
+		})
+	}
+
+	seleted_album(album){
+		console.log(this.state.playlist);
+		let playlist = [];
+		album.songs.forEach((song) => {
+			playlist.push({src: song.src});
 		});
 		this.setState({
-			"album":current_album[0].name,
-			"songs":current_album[0].songs,
-			"current_song":"Play your favourite song"
+			"album": album.name,
+			"songs": album.songs,
+			"current_album": album.name,
+			playlist
 		});
 	}
 
-	current_song(event,cur_song){
+	current_song(index, song, albums){
+		document.getElementById("play").click();
+		let current_album = albums.filter(album => album.name === this.state.current_album);
+		console.log(this.state.playlist);
 		this.setState({
-			"current_song":cur_song.index+1+". "+cur_song.song,
+			"current_song":`0${index}. ${song.name}`,
+			"src": song.src,
+			"current_album_playing":current_album[0].name,
+			current_src: [this.state.playlist[--index]]
 		});
 	}
 
 	render() {
-		let playlist = [
-			{ src: "http://media.djmazadownload.xyz/music/Singles/Aankh%20Marey%20%28Simmba%29%20-190Kbps%20%5BDJMaza.US%5D.mp3",
-				title: "Song",
-				artist: "Singer" }
-		];
-
 		let rearrangedPlayer = [
 			{
 				className: "tier-top",
-				style: {margin: "1.3rem",display:"flex",
-				alignItems: "center",
-				justifyContent: "space-evenly",
-		},
+				style: {
+					margin: "1.3rem",
+					display:"flex",
+					alignItems: "center",
+					justifyContent: "space-evenly",
+				},
 				innerComponents: [
 					{
 						type: "rewind",
@@ -114,7 +93,7 @@ class SectionTwo extends Component {
 			},
 			{
 				className: "tier-bottom",
-				style: {margin: "0rem 0.3rem 0.3rem 0.3rem",width:"480px"},
+				style: { margin: "0rem 0.3rem 0.3rem 0.3rem",width:"480px" },
 				innerComponents: [
 					{
 						type: "seek",
@@ -129,30 +108,32 @@ class SectionTwo extends Component {
 					<img src={cd} className="cd_image" alt="boy"/>
 					<div className="lower_Block_left_lower">
 						<span className="lower_Block_left_lower_label">Discography</span>
-						{this.albums.map(
-							(album,index) => {
-							return (
-								<div className="album_list" key={index}>
-									<span className="album_list_name">{album.name}</span>
-									<span className="album_list_year">{album.year}</span>
-									<span className="album_list_listen" onClick={event => { this.seleted_album(event,album.name)}}>Listen</span>
-									<span className="album_list_buy">BUY</span>
-								</div>
+						{
+							albums.map(
+								(album,index) => {
+									return (
+										<div className="album_list" key={index}>
+											<span className="album_list_name">{album.name}</span>
+											<span className="album_list_year">{album.year}</span>
+											<span className="album_list_listen" onClick={event => { this.seleted_album(album)}}>Listen</span>
+											<span className="album_list_buy">BUY</span>
+										</div>
+									)
+								}
 							)
-							}
-						)}
+						}
 					</div>
 				</div>
 				<div className="lower_Block_right">
 					<div className="lower_Block_sectionone">
 						<div className="lBl_header_label">Now playing</div>
-						<div className="lBl_album_label">{this.state.album}</div>
+						<div className="lBl_album_label">{this.state.current_album_playing}</div>
 						<div className="lBl_current_song_label">{this.state.current_song}</div>
 					</div>
 					<div className="lower_Block_sectiontwo">
-						<AudioPlayer className="slider"
+						<AudioPlayer
 						  rearrange={rearrangedPlayer}
-							audioFiles={playlist}
+							audioFiles={this.state.current_src}
 							rewindIcon={rewindGray}
 							forwardIcon={forwardGray}
 							playIcon={playGray}
@@ -165,17 +146,18 @@ class SectionTwo extends Component {
 					</div>
 					<div className="lower_Block_sectionthree">
 						<div className="lBl_album_label">{this.state.album}</div>
-						{this.state.songs.map((song,index) => {
-							return(
-								<div className="songs_list">
-								<img className="current_song" src={arrowGray} alt="current_song"/>
-									<div className="lBl_song_label" onClick={event => { this.current_song(event,{index,song})}} key={index}>
-										{index+1+". "+song}
-									<span className="song_time">{`......................2:30`}</span>
+						{
+							this.state.songs.map((song,index) => {
+								return(
+									<div key={index} className={classnames("songs_list", 	{"active": song.src === this.state.src})} onClick={() =>this.current_song(index, song, albums)}>
+										<img className="current_song" src={song.src === this.state.src ? arrowBlack : arrowGray} alt="current_song" />
+										<div className="lBl_song_label"  key={index}>
+											{`0${++index+". "}${song.name}`}
+										<span className="song_time">{`......................${song.time}`}</span>
+										</div>
 									</div>
-								</div>
-							)
-						})
+								)
+							})
 						}
 					</div>
 				</div>

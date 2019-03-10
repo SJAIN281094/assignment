@@ -35,7 +35,6 @@ body{
   font-size: 100px;
   left: 60px;
   top: 0;
-  right: 60px;
   z-index: 99;
   bottom: 0;
   display: flex;
@@ -133,6 +132,7 @@ body{
 .album_list {
   display: flex;
   margin: 20px 0px;
+  align-items: center;
 }
 
 .album_list_name {
@@ -203,77 +203,153 @@ body{
   margin: 8px 0px 14px 0px;
 }
 
-.lBl_current_song_label{
+.lBl_current_song_label {
   font-size: 1em;
   margin: 15px 0px 0px 0px;
 }
 
-.lower_Block_sectionthree{
+.lower_Block_sectionthree {
   margin: 40px 0px 0px;
   position: relative;
 }
 
-.current_song{
+.current_song {
   position: absolute;
   left: 0px;
 }
 
-.songs_list{
+.songs_list {
   width: 500px;
   position: relative;
 }
 
-.lBl_song_label{
+.songs_list.active .lBl_song_label  {
+  font-weight: 700;
+}
+
+.lBl_song_label {
   font-size: 1em;
+  color:#81695f;
   cursor: pointer;
   margin: 15px 0px 0px 30px;
   width: 300px;
   word-break: break-all;
 }
 
-.lBl_song_label:hover{
-  font-weight: 700;
-}
-
-.song_time{
+.song_time {
   position: absolute;
   right: 20px;
 }
 
-
-.lower_Block_sectiontwo{
+.lower_Block_sectiontwo {
   margin: 20px 0px 0px;
 }
 
-.audio-player{
+.audio-player {
   width: 30rem !important;
 }
 
-#play-icon{
+#play-icon {
 	height: 2rem !important;
 }
 
-#rewind-icon{
+#rewind-icon {
 	height: 2rem !important;
 }
 
-#forward-icon{
+#forward-icon {
 	height: 2rem !important;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
 }
 
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  border: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: goldenrod;
+  border: 1px solid #81695f !important;
+  background: #81695f !important;
+  cursor: pointer !important;
+  width: 15px !important;
+  height: 15px !important;
+  margin-top: -5px !important;
 }
 
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: red !important;
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  border: 1px solid #81695f !important;
+  background: #81695f !important;
+  cursor: pointer !important;
+  width: 15px !important;
+  height: 15px !important;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  border: 1px solid #81695f !important;
+  background: #81695f !important;
+  cursor: pointer !important;
+  width: 15px !important;
+  height: 15px !important;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100% !important;
+  cursor: pointer !important;
+  background: #81695f !important;
+  border-color: #81695f !important;
+  color: #81695f !important;
+  height: 5px !important;
+  border-radius: 10px !important;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100% !important;
+  cursor: pointer !important;
+  background: #81695f !important;
+  border-color: #81695f !important;
+  color: #81695f !important;
+  height: 5px !important;
+  border-radius: 10px !important;
+}
+
+input[type=range]::-ms-track {
+  width: 100% !important;
+  cursor: pointer !important;
+  background: #81695f !important;
+  border-color: #81695f !important;
+  color: #81695f !important;
+  height: 5px !important;
+  border-radius: 10px !important;
 }
 
 input[type=range]::-webkit-slider-fill-lower {
-  background: pink !important;
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
 }
