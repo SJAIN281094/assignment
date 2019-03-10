@@ -41,7 +41,6 @@ class SectionTwo extends Component {
 	}
 
 	seleted_album(album){
-		console.log(this.state.playlist);
 		let playlist = [];
 		album.songs.forEach((song) => {
 			playlist.push({src: song.src});
@@ -57,7 +56,6 @@ class SectionTwo extends Component {
 	current_song(index, song, albums){
 		document.getElementById("play").click();
 		let current_album = albums.filter(album => album.name === this.state.current_album);
-		console.log(this.state.playlist);
 		this.setState({
 			"current_song":`0${index}. ${song.name}`,
 			"src": song.src,
